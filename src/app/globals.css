@@ -1,0 +1,97 @@
+@import "tailwindcss";
+
+/* ------------------------------------------------------------------
+   Make IT Work — brand design tokens
+   Black / white / vibrant red, taken from the Make IT Work logo.
+   Red is an accent: CTAs, highlights, icons. Never large red fields.
+------------------------------------------------------------------- */
+@theme {
+  /* Logo red: icons, rules, accents and large shapes */
+  --color-brand: #ed111c;
+  /* Same hue, a touch deeper so white button text meets WCAG AA (4.9:1) */
+  --color-brand-strong: #e2101b;
+  --color-brand-hover: #c40d17;
+  /* Red text on dark surfaces (6:1 on #080808) */
+  --color-brand-bright: #ff4d55;
+  --color-brand-soft: #fde7e8;
+  --color-ink: #080808;
+  --color-charcoal: #171717;
+  --color-graphite: #262626;
+  --color-paper: #ffffff;
+  --color-mist: #f4f5f7;
+  --color-line: #e5e7eb;
+  --color-line-dark: #2a2a2a;
+  /* #666 on white = 5.7:1 (AA). Use --color-subtle-dark on dark surfaces. */
+  --color-subtle: #666666;
+  --color-subtle-dark: #a3a3a3;
+
+  --font-heading: var(--font-space-grotesk), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+
+  --radius-card: 1rem;
+  --shadow-card: 0 1px 2px rgb(8 8 8 / 0.04), 0 8px 24px -12px rgb(8 8 8 / 0.12);
+  --shadow-card-hover: 0 2px 4px rgb(8 8 8 / 0.05), 0 20px 40px -16px rgb(8 8 8 / 0.22);
+
+  --animate-fade-up: fade-up 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+  @keyframes fade-up {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-heading);
+  letter-spacing: -0.02em;
+  line-height: 1.12;
+  text-wrap: balance;
+}
+
+p { text-wrap: pretty; }
+
+:focus-visible {
+  outline: 3px solid var(--color-brand);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+::selection { background: var(--color-brand); color: #fff; }
+
+/* Subtle engineering grid used behind dark hero/CTA sections */
+.tech-grid {
+  background-image:
+    linear-gradient(to right, rgb(255 255 255 / 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(255 255 255 / 0.05) 1px, transparent 1px);
+  background-size: 56px 56px;
+  mask-image: radial-gradient(ellipse at 70% 40%, #000 30%, transparent 75%);
+}
+
+/* Scroll reveal — progressive enhancement, content is visible without JS */
+.reveal { opacity: 1; }
+.js .reveal { opacity: 0; transform: translateY(16px); transition: opacity 0.6s cubic-bezier(0.22,1,0.36,1), transform 0.6s cubic-bezier(0.22,1,0.36,1); }
+.js .reveal.is-visible { opacity: 1; transform: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .js .reveal { opacity: 1; transform: none; }
+}
+
+details > summary { list-style: none; cursor: pointer; }
+details > summary::-webkit-details-marker { display: none; }
